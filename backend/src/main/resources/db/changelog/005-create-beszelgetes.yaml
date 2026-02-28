@@ -1,0 +1,93 @@
+databaseChangeLog:
+  - changeSet:
+      id: 005-create-beszelgetes
+      author: szaki
+      changes:
+        - createTable:
+            tableName: beszelgetes
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user1_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user2_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: letrehozva
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: beszelgetes
+            baseColumnNames: user1_id
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_beszelgetes_user1
+        - addForeignKeyConstraint:
+            baseTableName: beszelgetes
+            baseColumnNames: user2_id
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_beszelgetes_user2
+        - createTable:
+            tableName: uzenet
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: beszelgetes_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: kuldo_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: tartalom
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: olvasva
+                  type: boolean
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+              - column:
+                  name: kuldve
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: uzenet
+            baseColumnNames: beszelgetes_id
+            referencedTableName: beszelgetes
+            referencedColumnNames: id
+            constraintName: fk_uzenet_beszelgetes
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: uzenet
+            baseColumnNames: kuldo_id
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_uzenet_kuldo

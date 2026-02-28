@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/001-create-users.yaml
+  - include:
+      file: db/changelog/002-create-szakember-profil.yaml
+  - include:
+      file: db/changelog/003-create-szakterulet.yaml
+  - include:
+      file: db/changelog/004-create-munka.yaml
+  - include:
+      file: db/changelog/005-create-beszelgetes.yaml
+  - include:
+      file: db/changelog/006-create-ertekeles.yaml

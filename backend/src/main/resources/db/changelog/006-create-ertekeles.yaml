@@ -1,0 +1,85 @@
+databaseChangeLog:
+  - changeSet:
+      id: 006-create-ertekeles
+      author: szaki
+      changes:
+        - createTable:
+            tableName: ertekeles
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: ertekelo_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: ertekelt_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: pontszam
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: szoveg
+                  type: text
+              - column:
+                  name: letrehozva
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: ertekeles
+            baseColumnNames: ertekelo_id
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_ertekeles_ertekelo
+        - addForeignKeyConstraint:
+            baseTableName: ertekeles
+            baseColumnNames: ertekelt_id
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_ertekeles_ertekelt
+        - createTable:
+            tableName: ertekeles_valasz
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: ertekeles_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: szoveg
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: letrehozva
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: ertekeles_valasz
+            baseColumnNames: ertekeles_id
+            referencedTableName: ertekeles
+            referencedColumnNames: id
+            constraintName: fk_ertekeles_valasz_ertekeles
+            onDelete: CASCADE

@@ -1,0 +1,65 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003-create-szakterulet
+      author: szaki
+      changes:
+        - createTable:
+            tableName: szakterulet
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: nev
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+                    unique: true
+        - createTable:
+            tableName: szakember_szakterulet
+            columns:
+              - column:
+                  name: szakember_profil_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: szakterulet_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+        - addPrimaryKey:
+            tableName: szakember_szakterulet
+            columnNames: szakember_profil_id, szakterulet_id
+            constraintName: pk_szakember_szakterulet
+        - addForeignKeyConstraint:
+            baseTableName: szakember_szakterulet
+            baseColumnNames: szakember_profil_id
+            referencedTableName: szakember_profil
+            referencedColumnNames: id
+            constraintName: fk_szakember_szakterulet_profil
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: szakember_szakterulet
+            baseColumnNames: szakterulet_id
+            referencedTableName: szakterulet
+            referencedColumnNames: id
+            constraintName: fk_szakember_szakterulet_szakterulet
+            onDelete: CASCADE
+        - sql:
+            sql: >
+              INSERT INTO szakterulet (nev) VALUES
+              ('Villanyszerelő'),
+              ('Vízszerelő'),
+              ('Festő'),
+              ('Burkoló'),
+              ('Asztalos'),
+              ('Lakatos'),
+              ('Kőműves'),
+              ('Tetőfedő'),
+              ('Klímaszerelő'),
+              ('Kertész');
