@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: 007-test-data
+      author: szaki
+      context: dev
+      comment: "Tesztadatok - Jelszó minden felhasználóhoz: jelszo123"
+      changes:
+        - sqlFile:
+            path: db/changelog/007-test-data.sql
+            relativeToChangelogFile: false

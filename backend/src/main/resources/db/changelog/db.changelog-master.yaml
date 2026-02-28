@@ -11,3 +11,5 @@ databaseChangeLog:
       file: db/changelog/005-create-beszelgetes.yaml
   - include:
       file: db/changelog/006-create-ertekeles.yaml
+  - include:
+      file: db/changelog/007-test-data.yaml
