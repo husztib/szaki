@@ -1,13 +1,14 @@
 package hu.szaki.controller;
 
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class SpaController {
+public class SpaController implements ErrorController {
 
-    @GetMapping(value = {"/", "/{path:^(?!api|api-docs|swagger-ui).*$}/**"})
-    public String forward() {
+    @GetMapping("/error")
+    public String handleError() {
         return "forward:/index.html";
     }
 }

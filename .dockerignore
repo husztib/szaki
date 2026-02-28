@@ -1,0 +1,11 @@
+target/
+node_modules/
+dist/
+.angular/
+.idea/
+.git/
+.claude/
+.mvn/
+frontend/node/
+*.iml
+.DS_Store
